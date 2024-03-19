@@ -1,22 +1,22 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Radio from '@mui/material/Radio';
-import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
-import Rating from '@mui/material/Rating';
-import Divider from '@mui/material/Divider';
-import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
-import RadioGroup from '@mui/material/RadioGroup';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Radio from "@mui/material/Radio";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import Rating from "@mui/material/Rating";
+import Divider from "@mui/material/Divider";
+import Checkbox from "@mui/material/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
+import RadioGroup from "@mui/material/RadioGroup";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
-import { ColorPicker } from 'src/components/color-utils';
+import Iconify from "src/components/iconify";
+import Scrollbar from "src/components/scrollbar";
+import { ColorPicker } from "src/components/color-utils";
 
 // ----------------------------------------------------------------------
 
@@ -138,7 +138,7 @@ export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter
         endIcon={<Iconify icon="ic:round-filter-list" />}
         onClick={onOpenFilter}
       >
-        Filters&nbsp;
+        Lọc sản phẩm&nbsp;
       </Button>
 
       <Drawer
@@ -156,7 +156,7 @@ export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter
           sx={{ px: 1, py: 2 }}
         >
           <Typography variant="h6" sx={{ ml: 1 }}>
-            Filters
+            Bộ lọc
           </Typography>
           <IconButton onClick={onCloseFilter}>
             <Iconify icon="eva:close-fill" />

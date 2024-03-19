@@ -15,10 +15,14 @@ app.use(express.static('public'));
 
 // Routes
 app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 // Connect to database
 connectDb().then(r => {
-    app.listen(3000, () => {
+    app.listen({
+        port: 3000,
+        host: '192.168.1.3'
+    }, () => {
         console.log('Server is running on port 3000');
     });
 });

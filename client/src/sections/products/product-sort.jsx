@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import { listClasses } from '@mui/material/List';
-import Typography from '@mui/material/Typography';
+import Menu from "@mui/material/Menu";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import { listClasses } from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 
-import Iconify from 'src/components/iconify';
+import Iconify from "src/components/iconify";
 
 // ----------------------------------------------------------------------
 
 const SORT_OPTIONS = [
-  { value: 'featured', label: 'Featured' },
-  { value: 'newest', label: 'Newest' },
-  { value: 'priceDesc', label: 'Price: High-Low' },
-  { value: 'priceAsc', label: 'Price: Low-High' },
+  { value: 'featured', label: 'Loại sản phẩm' },
+  { value: 'newest', label: 'Mới nhất' },
+  { value: 'priceDesc', label: 'Giá: Cao đến thấp' },
+  { value: 'priceAsc', label: 'Giá: Thấp đến cao' },
 ];
 
 export default function ShopProductSort() {
@@ -36,9 +36,9 @@ export default function ShopProductSort() {
         onClick={handleOpen}
         endIcon={<Iconify icon={open ? 'eva:chevron-up-fill' : 'eva:chevron-down-fill'} />}
       >
-        Sort By:&nbsp;
+        Sắp xếp theo:&nbsp;
         <Typography component="span" variant="subtitle2" sx={{ color: 'text.secondary' }}>
-          Newest
+          Mới nhất
         </Typography>
       </Button>
 

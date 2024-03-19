@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import Slide from '@mui/material/Slide';
-import Input from '@mui/material/Input';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Slide from "@mui/material/Slide";
+import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
-import { bgBlur } from 'src/theme/css';
+import { bgBlur } from "src/theme/css";
 
-import Iconify from 'src/components/iconify';
+import Iconify from "src/components/iconify";
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ export default function Searchbar() {
               autoFocus
               fullWidth
               disableUnderline
-              placeholder="Search…"
+              placeholder="Nhập từ khóa…"
               startAdornment={
                 <InputAdornment position="start">
                   <Iconify
@@ -77,7 +77,7 @@ export default function Searchbar() {
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
             <Button variant="contained" onClick={handleClose}>
-              Search
+              Tìm kiếm
             </Button>
           </StyledSearchbar>
         </Slide>
