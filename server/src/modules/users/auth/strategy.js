@@ -1,4 +1,4 @@
-const User = require('../../models/UserSchema');
+const User = require('../userModel');
 const passport = require('passport');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 

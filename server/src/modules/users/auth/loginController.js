@@ -2,7 +2,7 @@ const passport = require('passport');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const jwt = require('jsonwebtoken');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../../models/UserSchema');
+const User = require('../userModel');
 
 passport.use(new LocalStrategy(
     {
@@ -34,7 +34,7 @@ function login(req, res, next) {
             return res.send({status: 'invalid', message: 'Invalid password'});
         }
         const token = user.generateJWT();
-        return res.send({message: 'User logged in', token: token});
+        return res.send({status: 'success', message: 'User logged in', user: user});
     }).catch(function (error) {
         return next(error);
     });
