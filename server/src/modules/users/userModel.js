@@ -18,6 +18,9 @@ const User = new mongoose.Schema({
     avatar: {
         type: String, required: false,
     },
+    email: {
+        type: String, required: false,
+    },
     info: {
         fullName: {
             type: String, required: true, default: 'Khách'
