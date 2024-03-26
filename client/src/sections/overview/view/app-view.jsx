@@ -22,7 +22,7 @@ import AppConversionRates from '../app-conversion-rates';
 // ----------------------------------------------------------------------
 
 const apiCall = () => {
-    axios.get('http://localhost:3000/auth/register').then((data) => {
+    axios.get('http://192.168.0.113:3000/').then((data) => {
         console.log(data)
     })
 }

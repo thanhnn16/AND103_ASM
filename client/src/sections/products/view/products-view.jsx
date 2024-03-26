@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import Stack from "@mui/material/Stack";
+import {ButtonGroup} from "@mui/material";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
@@ -39,6 +41,9 @@ export default function ProductsView() {
         sx={{ mb: 5 }}
       >
         <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
+                <Button variant='outlined'>
+                    Thêm sản phẩm
+                </Button>
           <ProductFilters
             openFilter={openFilter}
             onOpenFilter={handleOpenFilter}
@@ -57,7 +62,6 @@ export default function ProductsView() {
         ))}
       </Grid>
 
-      <ProductCartWidget />
     </Container>
   );
 }

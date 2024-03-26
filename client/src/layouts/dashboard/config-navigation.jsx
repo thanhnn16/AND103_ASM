@@ -21,11 +21,31 @@ const navConfig = [
     title: 'Sản phẩm',
     path: '/products',
     icon: icon('ic_cart'),
+    children: [
+      {
+        title: 'Sản phẩm 1',
+        path: '/products/1',
+      },
+      {
+        title: 'Sản phẩm 2',
+        path: '/products/2',
+      },
+    ],
+  },
+  {
+    title: 'Loại sản phẩm',
+    path: '/productType',
+    icon: icon('ic_productType'),
   },
   {
     title: 'Dịch vụ',
     path: '/services',
     icon: icon('ic_services'),
+  },
+  {
+    title: 'Loại dịch vụ',
+    path: '/serviceType',
+    icon: icon('ic_serviceTypes'),
   },
   // {
   //   title: 'blog',
