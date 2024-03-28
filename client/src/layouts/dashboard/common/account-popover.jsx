@@ -8,8 +8,9 @@ import Popover from "@mui/material/Popover";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-
-import {account} from "src/_mock/account";
+import {useDispatch, useSelector} from "react-redux";
+import {removeCurrentUser} from "../../../store/auth/authSlice";
+import {AVATAR_URL} from "../../../services/appUrl";
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,10 @@ export default function AccountPopover() {
         setOpen(null);
     };
 
+    const dispatch = useDispatch();
+
+    const account = useSelector((state) => state.auth.user);
+
     return (
         <>
             <IconButton
@@ -56,15 +61,15 @@ export default function AccountPopover() {
                 }}
             >
                 <Avatar
-                    src={account.photoURL}
-                    alt={account.displayName}
+                    src={AVATAR_URL + account.avatar}
+                    alt={account?.info?.fullName}
                     sx={{
                         width: 36,
                         height: 36,
                         border: (theme) => `solid 2px ${theme.palette.background.default}`,
                     }}
                 >
-                    {account.displayName.charAt(0).toUpperCase()}
+                    {account?.info?.fullName.charAt(0).toUpperCase()}
                 </Avatar>
             </IconButton>
 
@@ -85,10 +90,10 @@ export default function AccountPopover() {
             >
                 <Box sx={{my: 1.5, px: 2}}>
                     <Typography variant="subtitle2" noWrap>
-                        {account.displayName}
+                        {account?.info?.fullName}
                     </Typography>
                     <Typography variant="body2" sx={{color: 'text.secondary'}} noWrap>
-                        {account.email}
+                        {account?.email}
                     </Typography>
                 </Box>
 
@@ -106,7 +111,7 @@ export default function AccountPopover() {
                     disableRipple
                     disableTouchRipple
                     onClick={() => {
-                        localStorage.removeItem('accessToken');
+                        dispatch(removeCurrentUser());
                         window.location.href = '/login';
                     }}
                     sx={{typography: 'body2', color: 'error.main', py: 1.5}}

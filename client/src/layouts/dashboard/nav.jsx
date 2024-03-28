@@ -14,13 +14,16 @@ import { RouterLink } from "src/routes/components";
 
 import { useResponsive } from "src/hooks/use-responsive";
 
-import { account } from "src/_mock/account";
+// import { account } from "src/_mock/account";
+
+import {useSelector} from "react-redux";
 
 import Logo from "src/components/logo";
 import Scrollbar from "src/components/scrollbar";
 
 import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
+import {AVATAR_URL, BASE_URL} from "../../services/appUrl";
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +39,8 @@ export default function Nav({ openNav, onCloseNav }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  const account = useSelector(state => state.auth.user);
+
   const renderAccount = (
     <Box
       sx={{
@@ -49,13 +54,14 @@ export default function Nav({ openNav, onCloseNav }) {
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={account.photoURL} alt="photoURL" />
+      <Avatar src={AVATAR_URL + account.avatar}
+              alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Typography variant="subtitle2">{account?.info?.fullName}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {account.role}
+          {account?.role}
         </Typography>
       </Box>
     </Box>
@@ -65,7 +71,7 @@ export default function Nav({ openNav, onCloseNav }) {
     <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
       {navConfig.map((item) => (
         <NavItem key={item.title} item={item} />
-        
+
       ))}
     </Stack>
   );

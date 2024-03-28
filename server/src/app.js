@@ -9,9 +9,12 @@ const productTypesRouter = require('./modules/productTypes/productTypeRouter');
 const servicesRouter = require('./modules/services/serviceRouter');
 const serviceTypesRouter = require('./modules/serviceTypes/serviceTypeRouter');
 const index = require('./routes/index');
+const morgan = require('morgan');
 
 app.use(express.json());
 app.use(cors());
+app.use(morgan('combined'));
+
 
 // Public folder
 app.use(express.static('public'));
@@ -31,7 +34,9 @@ connectDb().then(r => {
     app.listen({
         port: 3000,
         // host: '192.168.1.3'
+        host: '192.168.0.18' // Timor Coffee
         // host: '172.20.10.3' // iTel server
+        // host: '172.16.83.158' // FPT
     }, () => {
         console.log('Server is running on port 3000');
     });

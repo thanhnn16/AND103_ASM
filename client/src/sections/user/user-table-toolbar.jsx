@@ -27,13 +27,13 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
     >
       {numSelected > 0 ? (
         <Typography component="div" variant="subtitle1">
-          {numSelected} selected
+          Đã chọn {numSelected}
         </Typography>
       ) : (
         <OutlinedInput
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search user..."
+          placeholder="Tìm kiếm người dùng..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify
@@ -46,13 +46,13 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Xoá">
           <IconButton>
             <Iconify icon="eva:trash-2-fill" />
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
+        <Tooltip title="Bộ lọc">
           <IconButton>
             <Iconify icon="ic:round-filter-list" />
           </IconButton>

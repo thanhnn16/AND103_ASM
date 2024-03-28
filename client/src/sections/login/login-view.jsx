@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useState} from 'react';
+import {useDispatch} from "react-redux";
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -18,6 +19,9 @@ import {bgGradient} from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
+import {API_URL} from "../../services/appUrl";
+import {saveCurrentUser} from "../../store/auth/authSlice";
+
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
@@ -29,22 +33,28 @@ export default function LoginView() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
+    const [error, setError] = useState('');
+
+    const dispatch = useDispatch();
+
     // eslint-disable-next-line consistent-return
     const handleClick = () => {
         const request = {
             phoneNumber, password
         }
-        axios.post('http://localhost:3000/auth/login', request).then((response) => {
+        axios.post(`${API_URL}auth/login`, request).then((response) => {
             const {data} = response;
             if (data.status === 'not_found') {
-                console.log('User not found');
+                setError('Số điện thoại không tồn tại');
             } else if (data.status === 'invalid') {
-                console.log('Invalid password');
+                setError('Mật khẩu không đúng');
             } else if (data.token !== null) {
-                console.log('Login success');
+                setError('')
+                console.log(data.user)
+                dispatch(saveCurrentUser(data.user));
                 router.push('/');
             } else {
-                console.log('Login failed');
+                setError('Đã có lỗi xảy ra')
             }
         })
     };
@@ -70,7 +80,9 @@ export default function LoginView() {
                 }}
             />
         </Stack>
-        <Stack marginBottom={3.5}/>
+        <Stack marginBottom={1.5}/>
+        <Typography variant="body2" color="error">{error}</Typography>
+        <Stack marginBottom={2}/>
         <LoadingButton
             fullWidth
             size="large"

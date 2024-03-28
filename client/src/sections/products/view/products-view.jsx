@@ -1,23 +1,24 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 import Stack from "@mui/material/Stack";
-import {ButtonGroup} from "@mui/material";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 
-import { products } from "src/_mock/products";
+// import { products } from "src/_mock/products";
 
 import ProductCard from "../product-card";
 import ProductSort from "../product-sort";
 import ProductFilters from "../product-filters";
-import ProductCartWidget from "../product-cart-widget";
+import instance from "../../../services/axios";
 
 // ----------------------------------------------------------------------
 
 export default function ProductsView() {
   const [openFilter, setOpenFilter] = useState(false);
+
+  const [products, setProducts] = useState([]);
 
   const handleOpenFilter = () => {
     setOpenFilter(true);
@@ -26,6 +27,18 @@ export default function ProductsView() {
   const handleCloseFilter = () => {
     setOpenFilter(false);
   };
+
+    useEffect(() => {
+        instance.get('/products')
+            .then(res => {
+                console.log(res);
+                if ('data' in res) {
+                setProducts(res.data);
+                }
+            }).catch(err => {
+            console.log(err)
+        });
+    }, []);
 
   return (
     <Container>
@@ -55,8 +68,8 @@ export default function ProductsView() {
       </Stack>
 
       <Grid container spacing={3}>
-        {products.map((product) => (
-          <Grid key={product.id} xs={12} sm={6} md={3}>
+        {products?.map((product) => (
+          <Grid key={product._id} xs={12} sm={6} md={3}>
             <ProductCard product={product} />
           </Grid>
         ))}

@@ -11,13 +11,15 @@ import { fCurrency } from 'src/utils/format-number';
 import Label from 'src/components/label';
 import { ColorPreview } from 'src/components/color-utils';
 
+import {BASE_URL} from "../../services/appUrl";
+
 // ----------------------------------------------------------------------
 
 export default function ShopProductCard({ product }) {
   const renderStatus = (
     <Label
       variant="filled"
-      color={(product.status === 'sale' && 'error') || 'info'}
+      color={(product.name === 'sale' && 'error') || 'info'}
       sx={{
         zIndex: 9,
         top: 16,
@@ -26,7 +28,7 @@ export default function ShopProductCard({ product }) {
         textTransform: 'uppercase',
       }}
     >
-      {product.status}
+      {product.name}
     </Label>
   );
 
@@ -34,7 +36,7 @@ export default function ShopProductCard({ product }) {
     <Box
       component="img"
       alt={product.name}
-      src={product.cover}
+      src={product.images[0] ?? `${BASE_URL}/images/cover_19.jpg`}
       sx={{
         top: 0,
         width: 1,
@@ -47,17 +49,6 @@ export default function ShopProductCard({ product }) {
 
   const renderPrice = (
     <Typography variant="subtitle1">
-      <Typography
-        component="span"
-        variant="body1"
-        sx={{
-          color: 'text.disabled',
-          textDecoration: 'line-through',
-        }}
-      >
-        {product.priceSale && fCurrency(product.priceSale)}
-      </Typography>
-      &nbsp;
       {fCurrency(product.price)}
     </Typography>
   );
@@ -65,7 +56,7 @@ export default function ShopProductCard({ product }) {
   return (
     <Card>
       <Box sx={{ pt: '100%', position: 'relative' }}>
-        {product.status && renderStatus}
+        {product.name && renderStatus}
 
         {renderImg}
       </Box>
@@ -76,7 +67,7 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={product.colors} />
+          <ColorPreview colors={['blue', 'red']} />
           {renderPrice}
         </Stack>
       </Stack>

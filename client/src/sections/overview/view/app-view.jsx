@@ -1,8 +1,7 @@
 import React from "react";
-import axios from 'axios';
 import { faker } from '@faker-js/faker';
+import {useSelector} from "react-redux";
 
-import Button from "@mui/material/Button";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -21,18 +20,14 @@ import AppConversionRates from '../app-conversion-rates';
 
 // ----------------------------------------------------------------------
 
-const apiCall = () => {
-    axios.get('http://192.168.0.113:3000/').then((data) => {
-        console.log(data)
-    })
-}
 
 export default function AppView() {
+    const user = useSelector(state => state.auth.user);
+
   return (
     <Container maxWidth="xl">
         <Typography variant="h4" sx={{mb: 5}}>
-            Hi, Welcome back 👋
-            <Button onClick={apiCall}>Make API Call</Button>
+            {`Chào mừng ${user?.info?.fullName} 👋`}
         </Typography>
 
         <Grid container spacing={3}>

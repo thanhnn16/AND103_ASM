@@ -1,8 +1,9 @@
 const Product = require('./productModel');
 const ProductType = require('../productTypes/productTypeModel');
 
-const index = (req, res) => {
-    return res.send('Products');
+const index = async (req, res) => {
+    const products = await Product.find();
+    return res.send(products);
 }
 
 const createProduct = async (req, res) => {
@@ -54,6 +55,18 @@ const getProduct = async (req, res) => {
         return res.status(500).send({status: 'error', message: err.message});
     }
 }
+
+const getProductsByIds = async (req, res) => {
+    const {ids} = req.body;
+    try {
+        const products = await Product.find({_id: {$in: ids}}, {__v: 0}, {lean: true});
+        return res.send(products);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({status: 'error', message: err.message});
+    }
+}
+
 const updateProduct = async (req, res) => {
     const {id} = req.params;
     const {name, description, price, images, productTypeId} = req.body;
@@ -96,6 +109,7 @@ module.exports = {
     createProduct,
     getProducts,
     getProduct,
+    getProductsByIds,
     updateProduct,
     deleteProduct,
 }
