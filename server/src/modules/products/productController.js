@@ -90,6 +90,21 @@ const updateProduct = async (req, res) => {
     });
 }
 
+const searchProduct = async (req, res) => {
+    const {q} = req.query;
+    try {
+        const products = await Product.find({name: {$regex: q, $options: 'i'}});
+        if (!products) {
+            return res.send([]);
+        } else {
+            return res.send(products);
+        }
+    } catch (e) {
+        console.log(e.message);
+        return res.send([]);
+    }
+}
+
 const deleteProduct = async (req, res) => {
     const {id} = req.params;
     const product = await Product.findById(id);
@@ -111,5 +126,6 @@ module.exports = {
     getProduct,
     getProductsByIds,
     updateProduct,
+    searchProduct,
     deleteProduct,
 }

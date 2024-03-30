@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -8,9 +9,9 @@ import Popover from "@mui/material/Popover";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import {useDispatch, useSelector} from "react-redux";
-import {removeCurrentUser} from "../../../store/auth/authSlice";
+
 import {AVATAR_URL} from "../../../services/appUrl";
+import {removeCurrentUser} from "../../../store/auth/authSlice";
 
 // ----------------------------------------------------------------------
 

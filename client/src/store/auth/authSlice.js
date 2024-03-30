@@ -9,10 +9,16 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         saveCurrentUser: (state, action) => {
-            state.user = action.payload
+            const user = action.payload;
+            if (user.password) {
+                delete user.password;
+            }
+            state.user = user;
+            console.log('Saved user to state', state.user);
         },
         removeCurrentUser: (state) => {
             state.user = {}
+            console.log('Removed user from state');
         },
     },
 })

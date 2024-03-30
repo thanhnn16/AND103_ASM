@@ -1,14 +1,8 @@
 import storage from 'redux-persist/lib/storage';
+import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import {authSlice} from "./auth/authSlice";
-
-const middleware = getDefaultMiddleware({
-    serializableCheck: {
-        isSerializable: value => typeof value !== 'function'
-    }
-})
 
 const persistConfig = {
     key: 'root',
@@ -22,7 +16,16 @@ export const store = configureStore({
     reducer: {
         auth: persistedReducer,
     },
-    middleware,
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: false,
+    }),
 });
 
-export const persistor = persistStore(store);
+
+store.subscribe(() => {
+    console.log('State after dispatch: ', store.getState());
+});
+
+export const persistor = persistStore(store, null, () => {
+    console.log('Rehydrated state: ', store.getState());
+});

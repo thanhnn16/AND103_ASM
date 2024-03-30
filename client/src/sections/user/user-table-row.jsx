@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -54,9 +54,21 @@ export default function UserTableRow({
 
     const [edtAddress, setEdtAddress] = useState(address);
 
+    const [edtAvatar, setEdtAvatar] = useState(AVATAR_URL + avatarUrl);
+
+    useEffect(() => {
+        console.log(edtAvatar);
+    }, [edtAvatar]);
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        console.log(file);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setEdtAvatar(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     const handleOpenMenu = (event) => {
@@ -108,7 +120,7 @@ export default function UserTableRow({
 
                 <TableCell component="th" scope="row" padding="none">
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar alt={name} src={AVATAR_URL + avatarUrl}/>
+                        <Avatar alt={name} src={edtAvatar}/>
                         <Typography variant="subtitle2" noWrap>
                             {name}
                         </Typography>
@@ -190,7 +202,7 @@ export default function UserTableRow({
                     </DialogContentText>
 
                     <Typography variant="subtitle2">Hình ảnh</Typography>
-                    <Avatar alt='avatar' src={AVATAR_URL + avatarUrl} sx={{width: 80, height: 80, mb: 2}}/>
+                    <Avatar alt='avatar' src={edtAvatar} sx={{width: 80, height: 80, mb: 2}}/>
 
                     <input id="avatar" name="avatar" type="file" onChange={handleFileChange} accept="image/*"/>
 

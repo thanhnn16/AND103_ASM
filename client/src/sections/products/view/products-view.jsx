@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState, useEffect} from "react";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -6,12 +6,10 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 
-// import { products } from "src/_mock/products";
-
 import ProductCard from "../product-card";
 import ProductSort from "../product-sort";
-import ProductFilters from "../product-filters";
 import instance from "../../../services/axios";
+import ProductFilters from "../product-filters";
 
 // ----------------------------------------------------------------------
 

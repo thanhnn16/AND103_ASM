@@ -50,8 +50,12 @@ export default function LoginView() {
                 setError('Mật khẩu không đúng');
             } else if (data.token !== null) {
                 setError('')
-                console.log(data.user)
-                dispatch(saveCurrentUser(data.user));
+                const {user} = data;
+                if (user.role === 'user') {
+                    setError('Tài khoản không có quyền truy cập');
+                    return;
+                }
+                dispatch(saveCurrentUser(user));
                 router.push('/');
             } else {
                 setError('Đã có lỗi xảy ra')

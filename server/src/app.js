@@ -34,9 +34,9 @@ connectDb().then(r => {
     app.listen({
         port: 3000,
         // host: '192.168.1.3'
-        host: '192.168.0.18' // Timor Coffee
+        // host: '192.168.0.18' // Timor Coffee
         // host: '172.20.10.3' // iTel server
-        // host: '172.16.83.158' // FPT
+        host: '172.16.73.102' // FPT
     }, () => {
         console.log('Server is running on port 3000');
     });

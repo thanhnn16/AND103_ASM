@@ -23,7 +23,7 @@ import Scrollbar from "src/components/scrollbar";
 
 import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
-import {AVATAR_URL, BASE_URL} from "../../services/appUrl";
+import {AVATAR_URL} from "../../services/appUrl";
 
 // ----------------------------------------------------------------------
 
