@@ -13,4 +13,6 @@ router.post('/upload-avatar', uploadAvatar.single('avatar'), userController.uplo
 
 router.put('/:id', userController.updateUser);
 
+router.post('/delete/:id', userController.deleteUser);
+
 module.exports = router;

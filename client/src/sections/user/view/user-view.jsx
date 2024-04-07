@@ -1,18 +1,17 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import TableBody from "@mui/material/TableBody";
 import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
+import AddUserDialog from './add-user-dialog';
 
 // import { users } from "src/_mock/user";
 
-import Iconify from "src/components/iconify";
 import Scrollbar from "src/components/scrollbar";
 
 import TableNoData from "../table-no-data";
@@ -21,11 +20,13 @@ import UserTableHead from "../user-table-head";
 import instance from "../../../services/axios";
 import TableEmptyRows from "../table-empty-rows";
 import UserTableToolbar from "../user-table-toolbar";
-import {emptyRows, applyFilter, getComparator} from "../utils";
+import { emptyRows, applyFilter, getComparator } from "../utils";
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+    const [openAddUser, setOpenAddUser] = useState(false);
+
     const [page, setPage] = useState(0);
 
     const [order, setOrder] = useState('asc');
@@ -53,6 +54,11 @@ export default function UserPage() {
                 console.log(err);
             })
     }, []);
+
+    const handleDelete = (userId) => {
+        const newUsers = users.filter((user) => user._id !== userId);
+        setUsers(newUsers);
+    };
 
     const handleSort = (event, id) => {
         const isAsc = orderBy === id && order === 'asc';
@@ -109,6 +115,14 @@ export default function UserPage() {
         filterName,
     });
 
+    const handleOpenAddUser = () => {
+        setOpenAddUser(true);
+    };
+
+    const handleCloseAddUser = () => {
+        setOpenAddUser(false);
+    };
+
     const notFound = !dataFiltered.length && !!filterName;
 
     return (
@@ -116,11 +130,8 @@ export default function UserPage() {
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                 <Typography variant="h4">Khách hàng</Typography>
 
-                <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill"/>}>
-                    Thêm khách hàng
-                </Button>
+                <AddUserDialog open={openAddUser} onClose={handleCloseAddUser} />
             </Stack>
-
             <Card>
                 <UserTableToolbar
                     numSelected={selected.length}
@@ -129,8 +140,8 @@ export default function UserPage() {
                 />
 
                 <Scrollbar>
-                    <TableContainer sx={{overflow: 'unset'}}>
-                        <Table sx={{minWidth: 800}}>
+                    <TableContainer sx={{ overflow: 'unset' }}>
+                        <Table sx={{ minWidth: 800 }}>
                             <UserTableHead
                                 order={order}
                                 orderBy={orderBy}
@@ -139,12 +150,12 @@ export default function UserPage() {
                                 onRequestSort={handleSort}
                                 onSelectAllClick={handleSelectAllClick}
                                 headLabel={[
-                                    {id: 'name', label: 'Họ tên'},
-                                    {id: 'phoneNumber', label: 'Số điện thoại'},
-                                    {id: 'address', label: 'Địa chỉ'},
-                                    {id: 'dob', label: 'Ngày sinh', align: 'center'},
-                                    {id: 'gender', label: 'Giới tính', align: 'center'},
-                                    {id: ''},
+                                    { id: 'name', label: 'Họ tên' },
+                                    { id: 'phoneNumber', label: 'Số điện thoại' },
+                                    { id: 'address', label: 'Địa chỉ' },
+                                    { id: 'dob', label: 'Ngày sinh', align: 'center' },
+                                    { id: 'gender', label: 'Giới tính', align: 'center' },
+                                    { id: '' },
                                 ]}
                             />
                             <TableBody>
@@ -161,6 +172,7 @@ export default function UserPage() {
                                             address={row.info.address}
                                             dob={row.info.dob}
                                             gender={row.info.gender}
+                                            onDelete={handleDelete}
                                             selected={selected.indexOf(row._id) !== -1}
                                             handleClick={(event) => handleClick(event, row._id)}
                                         />
@@ -171,7 +183,7 @@ export default function UserPage() {
                                     emptyRows={emptyRows(page, rowsPerPage, users.length)}
                                 />
 
-                                {notFound && <TableNoData query={filterName}/>}
+                                {notFound && <TableNoData query={filterName} />}
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -179,7 +191,7 @@ export default function UserPage() {
 
                 <TablePagination
                     labelRowsPerPage="Số dòng mỗi trang"
-                    labelDisplayedRows={({from, to, count}) => `${from} - ${to} trong tổng số ${count}`}
+                    labelDisplayedRows={({ from, to, count }) => `${from} - ${to} trong tổng số ${count}`}
                     page={page}
                     component="div"
                     count={users.length}
